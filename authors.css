@@ -2,7 +2,7 @@
   margin-top: 1.25rem;
   color: var(--muted);
   font-family: var(--sans);
-  text-align: center;
+  text-align: left;
 }
 
 .project-authors,
@@ -11,12 +11,15 @@
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  justify-content: center;
+  justify-content: flex-start;
   margin: 0;
 }
 
 .project-authors { gap: .4rem .6rem; }
 .project-author { color: var(--ink); font-size: 1.2rem; font-weight: 600; white-space: nowrap; }
+.project-author-name { color: inherit; text-decoration: none; }
+.project-author-name:hover { color: var(--accent); text-decoration: underline; text-underline-offset: .18em; }
+.project-author-name:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 .author-separator { font-size: 1rem; }
 .project-author-block sup { margin-left: .15em; font-size: .65em; line-height: 0; vertical-align: super; }
 .project-author sup { color: var(--muted); font-weight: 400; }
