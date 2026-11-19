@@ -1,0 +1,40 @@
+/* Compact only the video areas above the gallery; preserve media dimensions. */
+.hero-film{gap:var(--media-gap);padding-block:20px}
+.hero-film-copy{padding:0}
+.hero-film-copy>p{max-width:none}
+.hero-film .film-eyebrow{margin-bottom:14px}
+.hero-film .hero-control{margin-top:20px}
+#showcase,#action-response{padding-top:56px}
+#showcase .section-kicker,#action-response .section-kicker{margin-bottom:24px}
+#showcase .section-heading,#action-response .section-heading{margin-bottom:24px}
+#showcase .focus-stage{width:100%;max-width:none;margin:0;grid-template-columns:repeat(3,minmax(0,var(--gallery-video-width)));gap:var(--media-gap);align-items:start}
+#showcase .focus-detail{gap:0}
+#showcase .focus-detail canvas{order:0}
+#showcase .detail-heading{order:1;margin:10px 0 0;padding:0;border:0;line-height:1.4;align-items:center}
+#showcase .focus-notes{align-self:start;min-width:0}
+#showcase #watch-for{margin:0;max-width:32ch}
+#showcase .focus-navigation{margin-top:18px}
+#showcase>.showcase-controls{max-width:calc(2 * var(--gallery-video-width) + var(--media-gap));margin-left:0;margin-right:auto;padding-block:12px}
+#showcase .feature-reel{padding-top:0;padding-bottom:10px}
+#showcase>.metric-note{margin-top:10px}
+#action-response .scene-switcher{margin-bottom:16px}
+#action-response .branch-grid,#action-response>.showcase-controls{margin-left:0;margin-right:auto}
+#action-response>.showcase-controls{padding-block:12px}
+#action-response .branch-watch{margin-top:0}
+#action-response>.metric-note{margin-top:10px}
+@media(max-width:760px){
+  #showcase,#action-response{padding-top:44px}
+  #showcase .section-kicker,#action-response .section-kicker{margin-bottom:20px}
+  #showcase .section-heading,#action-response .section-heading{margin-bottom:20px}
+  #showcase .focus-stage{grid-template-columns:repeat(2,minmax(0,var(--gallery-video-width)));row-gap:14px}
+  #showcase .focus-notes{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  #showcase #watch-for{max-width:none}
+  #showcase .focus-navigation{flex-shrink:0;margin:0}
+  #showcase>.showcase-controls{max-width:none}
+}
+@media(max-width:560px){
+  .hero-film .hero-screen{justify-self:start}
+  .hero-film .hero-control{margin-top:0}
+  #showcase .focus-notes{gap:12px}
+  #showcase .detail-heading{margin-top:8px}
+}

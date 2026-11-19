@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="ReactDrive simulates driving scenes and how agents respond when the ego vehicle turns, changes lanes, accelerates, or stops.">
+  <title>ReactDrive · Self-Reactive World Model</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css?v=20261029-3">
+  <link rel="stylesheet" href="gallery.css?v=20261029-3">
+  <link rel="stylesheet" href="charts-motion.css?v=20261029-3">
+  <link rel="stylesheet" href="presentation.css?v=20261029-3">
+  <link rel="stylesheet" href="layout-refinements.css?v=20261029-3">
+  <link rel="stylesheet" href="video-layout.css?v=20261029-3">
+  <link rel="stylesheet" href="refresh.css?v=20261102-clean">
+  <link rel="stylesheet" href="section-cleanup.css?v=20261112-details">
+  <script defer src="assets/examples.js?v=20261112-details"></script>
+  <script defer src="assets/results.js?v=20261101-copy"></script>
+  <script defer src="assets/gallery.js?v=20261101-copy"></script>
+  <script defer src="assets/curation.js?v=20261102-clean"></script>
+  <script defer src="assets/results-extra.js?v=20261101-copy"></script>
+  <script defer src="charts-motion.js?v=20261029-3"></script>
+  <script defer src="app.js?v=20261113-labels-refined"></script>
+  <script defer src="gallery-ui.js?v=20261112-clean"></script>
+  <script defer src="results-ui.js?v=20261101-copy"></script>
+  <script defer src="presentation.js?v=20261029-3"></script>
+  <script defer src="media-sizing.js?v=20261029-3"></script>
+</head>
+<body>
+<a class="skip-link" href="#showcase">Skip to video showcase</a>
+<header class="masthead">
+  <a class="wordmark" href="#top" aria-label="ReactDrive home"><span class="red-dot"></span> ReactDrive</a>
+</header>
+<main>
+  <div id="top" aria-hidden="true"></div>
+  <section class="hero frame" aria-labelledby="project-title">
+    <div class="title-line"><h1 id="project-title"><span>React</span>Drive</h1></div>
+    <div class="hero-intro"><p class="hero-subtitle">Self-Reactive World Model for Autonomous Driving</p></div>
+    <div class="hero-film hero-comparison">
+      <div class="hero-film-copy"><span class="film-eyebrow">SELF-REACTIVITY</span><p>Same right turn.<br><em>Different responses.</em></p><div class="hero-control"><button id="hero-play" class="on-screen-button" aria-label="Play model comparison"><span aria-hidden="true">▶</span> Play</button><button id="hero-restart" class="on-screen-button" aria-label="Restart both hero videos">↺</button></div></div>
+      <div class="hero-comparison-media">
+        <div class="hero-pair" id="hero-pair">
+          <figure class="hero-action hero-baseline"><figcaption>Cosmos3</figcaption><div class="hero-screen"><video id="hero-video" muted playsinline preload="metadata" poster="assets/posters/shift-right-cosmos3.jpg" aria-label="Cosmos3: right turn from the same scene"><source src="assets/video/shift-right-cosmos3.mp4" type="video/mp4"></video><span id="hero-traffic-focus" class="hero-traffic-focus" hidden aria-hidden="true"></span></div></figure>
+          <figure class="hero-action"><figcaption>ReactDrive</figcaption><div class="hero-screen"><video id="hero-video-secondary" muted playsinline preload="metadata" poster="assets/posters/shift-right-reactdrive.jpg" aria-label="ReactDrive: right turn from the same scene"><source src="assets/video/shift-right-reactdrive.mp4" type="video/mp4"></video></div></figure>
+        </div>
+        <div class="hero-timeline"><input type="range" id="hero-scrub" min="0" max="60" step="1" value="0" aria-label="Synchronized hero frame"><output id="hero-time">00 / 60</output></div>
+      </div>
+    </div>
+    <div class="hero-stats" aria-label="Selected results">
+      <a href="#human"><strong class="metric-value">96.0<span class="metric-unit">%</span></strong><span>Preferred agent responses</span></a>
+      <a href="#results"><strong class="metric-value">26.3<span class="metric-unit">%</span></strong><span>Lower FVD</span></a>
+      <a href="#planning"><strong>85.1</strong><span>Better planning score</span></a>
+    </div>
+  </section>
+
+    <section class="section frame visual-showcase" id="showcase" aria-labelledby="showcase-title">
+    <h2 class="section-kicker" id="showcase-title"><span>01 - How agents react</span></h2>
+    <div class="showcase-meta"><div><span class="red-dot"></span><strong id="showcase-title-line">Stop</strong></div></div>
+    <div class="focus-stage" id="focus-stage">
+      <div class="focus-context" id="focus-context" tabindex="0" role="button" aria-label="Choose a region of the video to enlarge. Use arrow keys to move the detail window."><video id="showcase-video" muted playsinline preload="auto" aria-label="Selected ReactDrive video"></video><div id="focus-window" aria-hidden="true"></div><span class="focus-hint">Select a region to inspect</span></div>
+      <div class="focus-detail"><div class="detail-heading"><span class="red-dot"></span> Agents <span>Enlarged crop</span></div><canvas id="detail-canvas" width="768" height="512" aria-label="Enlarged region of the same ReactDrive video"></canvas></div>
+      <div class="focus-notes"><p id="watch-for"></p><div class="focus-navigation"><button id="feature-prev" class="square-button" aria-label="Previous scene">←</button><span id="feature-position"></span><button id="feature-next" class="square-button" aria-label="Next scene">→</button></div></div>
+    </div>
+    <div class="showcase-controls"><button id="showcase-play" class="square-button" aria-label="Play selected video">▶</button><button id="showcase-restart" class="square-button" aria-label="Restart selected video">↺</button><input type="range" id="showcase-scrub" min="0" max="60" step="1" value="0" aria-label="Selected video frame"><output id="showcase-time">00 / 60</output><select id="showcase-speed" aria-label="Selected video speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option></select><a class="view-library" href="#library">View all 50 ↓</a></div>
+    <div class="feature-reel" id="feature-reel" aria-label="Driving examples"></div>
+  </section>
+
+  <section class="section frame" id="action-response" aria-labelledby="action-title">
+    <h2 class="section-kicker" id="action-title"><span>02 - Different driving actions</span></h2>
+    <div class="scene-switcher segmented" id="scene-switcher" role="group" aria-label="Choose shared starting scene"></div>
+    <div class="branch-grid" id="branch-grid"></div>
+    <div class="showcase-controls"><button id="branch-play" class="square-button" aria-label="Play action comparison">▶</button><button id="branch-restart" class="square-button" aria-label="Restart action comparison">↺</button><input id="branch-scrub" type="range" min="0" max="60" step="1" value="0" aria-label="Action comparison frame"><output id="branch-time">00 / 60</output><label class="branch-detail-toggle"><input id="branch-detail" type="checkbox"> Zoom in on agents</label></div>
+    <p id="branch-watch" class="branch-watch"></p>
+  </section>
+
+  <section class="section frame" id="examples" aria-labelledby="examples-title">
+    <h2 class="section-kicker" id="examples-title"><span>03 - Model comparison</span></h2>
+    <div class="comparison-toolbar"><div class="pair-picker"><label for="example-select">Select a pair</label><span class="pair-select"><select id="example-select" aria-label="Choose comparison pair"></select><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></span><div class="pair-picker-nav"><button id="example-prev" class="square-button" aria-label="Previous comparison pair"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 6-6 6 6 6"/></svg></button><span id="example-position" aria-live="polite"></span><button id="example-next" class="square-button" aria-label="Next comparison pair"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></button></div></div></div>
+    <div class="compare-grid" id="comparison-screen">
+      <figure class="video-panel"><figcaption><span id="baseline-name">Cosmos3</span></figcaption><video id="baseline-video" muted playsinline preload="metadata" poster="assets/posters/shift-right-cosmos3.jpg" aria-label="Cosmos3 comparison video"></video></figure>
+      <figure class="video-panel ours"><figcaption><span>ReactDrive</span><span class="subtle">Ours</span></figcaption><video id="ours-video" muted playsinline preload="metadata" poster="assets/posters/shift-right-reactdrive.jpg" aria-label="ReactDrive comparison video"></video></figure>
+    </div>
+    <div class="player-controls"><button id="pair-play" class="square-button" aria-label="Play comparison">▶</button><button id="pair-restart" class="square-button" aria-label="Restart comparison">↺</button><button id="pair-prev" class="square-button frame-step" aria-label="Previous frame">‹</button><button id="pair-next" class="square-button frame-step" aria-label="Next frame">›</button><div class="scrubber"><input id="pair-scrub" type="range" min="0" max="60" step="1" value="0" aria-label="Comparison frame"><div class="timeline-labels"><span>Synchronized video time</span><span>10 fps</span></div></div><output id="pair-time">00 / 60</output><label class="speed-label"><span class="sr-only">Playback speed</span><select id="pair-speed" aria-label="Playback speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select></label><button id="pair-expand" class="square-button" aria-label="Expand comparison">⤢</button></div>
+    <div class="media-caption"><p id="example-description"></p></div>
+    <div class="sequence" aria-label="ReactDrive video frames"><div class="sequence-label"><span>ReactDrive, over time</span><span aria-hidden="true">→</span></div><img id="sequence-image" width="1728" height="192" src="assets/posters/shift-right-reactdrive-sequence.jpg" alt="Six frames from the ReactDrive video" loading="lazy"></div>
+  </section>
+
+  <section class="section frame" id="library" aria-labelledby="library-title">
+    <h2 class="section-kicker" id="library-title"><span>04 - More driving videos</span></h2>
+    <div class="library-toolbar"><div class="segmented" id="library-datasets" role="group" aria-label="Filter gallery dataset"><button data-library-dataset="all" aria-pressed="true">All datasets</button><button data-library-dataset="Waymo" aria-pressed="false">Waymo</button><button data-library-dataset="nuPlan" aria-pressed="false">nuPlan</button></div><label class="preview-toggle"><input type="checkbox" id="preview-toggle" checked> Play visible previews</label></div>
+    <div class="action-filters" id="library-actions" role="group" aria-label="Filter gallery driving action"><button data-library-action="all" aria-pressed="true">All actions</button><button data-library-action="accelerate" aria-pressed="false">Accelerate</button><button data-library-action="decelerate" aria-pressed="false">Slow down</button><button data-library-action="lane_shift_left" aria-pressed="false">Left</button><button data-library-action="lane_shift_right" aria-pressed="false">Right</button><button data-library-action="stop" aria-pressed="false">Stop</button></div>
+    <div class="library-status"><span id="library-count"></span><span>Select a clip to inspect ↑</span></div>
+    <div class="video-library" id="video-library"></div>
+    <div class="library-more"><button id="library-more">Show more videos</button><span id="library-progress"></span></div>
+  </section>
+
+  <section class="section frame" id="idea" aria-labelledby="idea-title">
+    <h2 class="section-kicker" id="idea-title"><span>05 - Key challenge</span></h2>
+    <div class="idea-layout"><div class="prose"><p>Turning, changing lanes, and braking can affect other agents. A world model should capture their responses.</p><p><strong>Self-reactivity</strong> means modeling how agents respond to a driving action and showing those responses in the generated video.</p></div></div>
+    <div class="schematic-demo" id="schematic-demo" aria-label="Conceptual animation of reactive and non-reactive agent responses">
+      <div class="demo-topline"><h3>The same maneuver.<br><em>A different response.</em></h3><span>CONCEPTUAL ILLUSTRATION</span></div>
+      <figure class="schematic-row"><figcaption><span class="demo-index">01</span><strong>Non-reactive</strong><span>The other agent continues without yielding.</span></figcaption><video id="schematic-nonreactive" muted playsinline preload="metadata" poster="assets/posters/non-reactive-schematic.jpg" aria-label="Schematic: agent continues without yielding"><source src="assets/video/schematics/non-reactive.mp4" type="video/mp4"></video></figure>
+      <figure class="schematic-row is-reactive"><figcaption><span class="demo-index">02</span><strong>Reactive</strong><span>An agent opens a gap.</span></figcaption><video id="schematic-reactive" muted playsinline preload="metadata" poster="assets/posters/reactive-schematic.jpg" aria-label="Schematic: agent yields to create a gap"><source src="assets/video/schematics/reactive.mp4" type="video/mp4"></video></figure>
+      <div class="demo-controls"><button id="schematic-play" class="square-button" aria-label="Play conceptual animations together">▶</button><button id="schematic-replay" class="square-button" aria-label="Replay conceptual animations">↺</button><input id="schematic-scrub" type="range" min="0" max="100" step="0.1" value="0" aria-label="Conceptual animation progress"><span>Same driving action · synchronized playback</span></div>
+      <p class="metric-note">Conceptual animations illustrating self-reactivity.</p>
+    </div>
+  </section>
+
+
+  <section class="section frame" id="method" aria-labelledby="method-title">
+    <h2 class="section-kicker" id="method-title"><span>06 - Method</span></h2>
+    <p class="section-lead method-intro">ReactDrive models how agents respond, then uses those responses to generate the next frames.</p>
+    <figure class="method-figure"><button class="image-zoom" id="method-expand" aria-label="Enlarge method figure"><img width="3600" height="1348" src="assets/images/pipeline.webp?v=20261113-labels-refined" alt="ReactDrive pipeline: shared visual and ego-action tokens condition a reactive dynamics prior and video generator. Agent states supervised by recorded trajectories become response tokens for the diffusion transformer." loading="lazy"><span aria-hidden="true">⤢</span></button></figure>
+    <div class="method-points"><article><span class="point-letter">a</span><h3>Shared conditioning</h3><p>Past frames and the chosen driving action become shared inputs.</p></article><article><span class="point-letter">b</span><h3>Reactive dynamics prior</h3><p>Recorded trajectories supervise agent positions, velocities, and state validity.</p></article><article><span class="point-letter">c</span><h3>Joint visual generation</h3><p>Agent response modeling and video generation are trained together.</p></article></div>
+  </section>
+
+  <section class="section frame" id="results" aria-labelledby="results-title">
+    <h2 class="section-kicker" id="results-title"><span>07 - Quantitative results</span></h2>
+    <div class="results-controls"><div class="segmented" id="result-modes" role="group" aria-label="Evaluation setting"><button data-mode="factual" aria-pressed="true">Recorded actions</button><button data-mode="counterfactual" aria-pressed="false">Changed actions</button></div><div class="segmented" id="result-datasets" role="group" aria-label="Result dataset"><button data-dataset="Waymo" aria-pressed="true">Waymo</button><button data-dataset="nuPlan" aria-pressed="false">nuPlan</button></div></div>
+    <div class="result-group-control" id="result-group-control" hidden><label for="result-group">Driving action</label><select id="result-group"><option value="overall">All actions</option><option value="laneChange">Lane changes</option><option value="accelerationDeceleration">Speed up / slow down</option><option value="stop">Stop</option></select></div>
+    <div id="chart-grid" class="chart-grid" aria-live="polite"></div><div id="method-legend" class="legend" aria-label="Chart legend"></div>
+    <div id="result-takeaway" class="result-takeaway"></div>
+    <details class="data-details"><summary>View numerical results <span aria-hidden="true">+</span></summary><div class="table-scroll" id="results-table"></div></details>
+    <details class="main-table-all"><summary>All datasets and action groups <span aria-hidden="true">+</span></summary><div class="table-scroll" id="all-main-results"></div></details>
+  </section>
+
+  <section class="section frame" id="ablation" aria-labelledby="ablation-title">
+    <h2 class="section-kicker" id="ablation-title"><span>08 - Ablation study</span></h2>
+    <div class="ablation-strip"><div><span class="ablation-label">FID ↓</span><div class="paired-number"><span>23.47</span><span class="direction">→</span><strong>23.64</strong></div><p>Similar image fidelity</p></div><div><span class="ablation-label">Agent ADE ↓</span><div class="paired-number"><span>1.14</span><span class="direction">→</span><strong>1.03</strong></div><p>More accurate agent paths</p></div><div><span class="ablation-label">Ego ADE ↓</span><div class="paired-number"><span>2.19</span><span class="direction">→</span><strong>1.86</strong></div><p>Better ego control</p></div><div><span class="ablation-label">Collision rate ↓</span><div class="paired-number"><span class="metric-value">0.45<span class="metric-unit">%</span></span><span class="direction">→</span><strong class="metric-value">0.26<span class="metric-unit">%</span></strong></div><p>Lower collision rate</p></div></div>
+    <details class="all-results-block"><summary>Full ablation results <span aria-hidden="true">+</span></summary><div class="table-scroll" id="ablation-full"></div><div class="result-group-control"><label for="ablation-group">Changed actions</label><select id="ablation-group"><option value="overall">All actions</option><option value="laneChange">Lane changes</option><option value="accelerationDeceleration">Speed up / slow down</option><option value="stop">Stop</option></select></div><div class="table-scroll" id="ablation-actions"></div></details>
+  </section>
+
+  <section class="section frame" id="planning" aria-labelledby="planning-title">
+    <h2 class="section-kicker" id="planning-title"><span>09 - Planning &amp; human evaluation</span></h2>
+    <div class="planning-visuals">
+      <article><h3>Planning score</h3><p class="evidence-subtitle">Predictive Driver Model Score ↑</p><div class="pdms-headline"><strong>+1.3</strong><span>PDMS points</span></div><div id="planning-chart"></div><p class="metric-note">Zoomed axis: 83–86 of 0–100.</p></article>
+      <article><h3>Metric gains</h3><p class="evidence-subtitle">Compared with real data alone</p><div class="mini-legend"><span><i class="baseline-color"></i>+ Cosmos3</span><span><i class="ours-color"></i>+ ReactDrive</span></div><div id="planning-deltas"></div></article>
+    </div>
+    <details class="planning-all-table planning-details"><summary>Full results &amp; metric definitions <span aria-hidden="true">+</span></summary><div class="table-scroll" id="planning-table"></div><p class="metric-note">NC: no-at-fault collision. DAC: drivable-area compliance. TTC: time-to-collision compliance. EP: ego progress. DDC: driving-direction compliance. PDMS: Predictive Driver Model Score. Both augmentation settings add equal numbers of generated samples.</p></details>
+    <article id="human" class="human-full"><div><h3>Human evaluation</h3><p class="metric-note">34 raters · 50 cases · 623 completed comparisons per criterion. Model identities were hidden and left/right positions randomized. Percentages pool judgments across the five baselines.</p><div class="mini-legend"><span><i class="ours-color"></i>ReactDrive</span><span><i class="baseline-color"></i>Baselines</span></div></div><div id="human-bars"></div></article>
+  </section>
+
+</main>
+<footer class="frame"><span>ReactDrive · Self-Reactive World Model for Autonomous Driving</span><div><a href="#top">Back to top ↑</a></div></footer>
+<dialog id="media-dialog" aria-label="Expanded figure or video comparison"><button id="dialog-close" class="dialog-close" aria-label="Close expanded view">×</button><div id="dialog-content"></div></dialog>
+</body>
+</html>

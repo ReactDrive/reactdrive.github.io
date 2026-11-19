@@ -1,0 +1,27 @@
+/* Native data marks stay visible without JavaScript; motion never changes values. */
+.native-chart { overflow:visible; }
+.native-chart [data-chart-item] { cursor:default; outline:none; }
+.native-chart [data-chart-index] { transition:opacity 160ms ease; }
+.chart-hit { fill:transparent; stroke:transparent; stroke-width:.8; }
+.native-chart [data-chart-item]:focus-visible .chart-hit { stroke:#6658f5; stroke-dasharray:2 3; }
+.chart-is-inspecting [data-chart-index]:not(.chart-is-selected) { opacity:.34; }
+.chart-is-inspecting [data-chart-line] { opacity:.36; transition:opacity 160ms ease; }
+.chart-is-selected .chart-hit { fill:rgba(102,88,245,.045); }
+.chart-is-selected [data-chart-label] { font-weight:700; }
+.chart-tooltip { position:fixed; z-index:1000; pointer-events:none; max-width:min(280px,calc(100vw - 24px)); padding:11px 14px 10px; background:rgba(35,39,60,.97); border:1px solid rgba(255,255,255,.14); border-radius:7px; color:#fff; box-shadow:0 7px 25px rgba(49,53,93,.15); font-family:Arial,sans-serif; font-variant-numeric:tabular-nums; line-height:1.35; }
+.chart-tooltip[hidden] { display:none; }
+.chart-tooltip strong { display:inline; font-size:12px; font-weight:600; }
+.chart-tooltip span { display:inline; margin-left:20px; font-size:13px; font-weight:600; color:#fff; }
+.chart-tooltip small { display:block; margin-top:4px; color:#d8dcee; font-size:10px; font-weight:400; }
+.chart-card .native-chart { display:block; width:100%; }
+.human-row [data-chart-item] { outline:none; }
+.human-row [data-chart-item]:focus-visible { outline:1px solid #6658f5; outline-offset:6px; }
+.preference-fill { transform-origin:left center; }
+@media (prefers-reduced-motion:reduce) {
+  .native-chart [data-chart-index],.chart-is-inspecting [data-chart-line] { transition:none; }
+}
+
+/* A light foundation and a brighter focal bar carry through to the human study. */
+.preference-track { background:#e8ecf3; }
+.preference-fill { background:linear-gradient(90deg,#a99bf9 0%,#6658f5 100%); }
+.baseline-color { background:#d7dde6; }
