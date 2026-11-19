@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="video-layout.css?v=20261029-3">
   <link rel="stylesheet" href="refresh.css?v=20261102-clean">
   <link rel="stylesheet" href="section-cleanup.css?v=20261112-details">
+  <link rel="stylesheet" href="authors.css?v=20261119">
   <script defer src="assets/examples.js?v=20261112-details"></script>
   <script defer src="assets/results.js?v=20261101-copy"></script>
   <script defer src="assets/gallery.js?v=20261101-copy"></script>
@@ -36,7 +37,33 @@
   <div id="top" aria-hidden="true"></div>
   <section class="hero frame" aria-labelledby="project-title">
     <div class="title-line"><h1 id="project-title"><span>React</span>Drive</h1></div>
-    <div class="hero-intro"><p class="hero-subtitle">Self-Reactive World Model for Autonomous Driving</p></div>
+    <div class="hero-intro">
+      <p class="hero-subtitle">Self-Reactive World Model for Autonomous Driving</p>
+      <div class="project-author-block" aria-label="Authors and affiliations">
+        <p class="project-authors">
+          <span class="project-author">Yifan Wang<sup>1<a href="#author-internship" aria-label="Internship note">†</a></sup></span>
+          <span class="author-separator" aria-hidden="true">·</span>
+          <span class="project-author">Xiaoqi Wang<sup>2,3<a href="#author-project-lead" aria-label="Project lead note">‡</a></sup></span>
+          <span class="author-separator" aria-hidden="true">·</span>
+          <span class="project-author">Cho-Ying Wu<sup>2,3</sup></span>
+          <span class="author-separator" aria-hidden="true">·</span>
+          <span class="project-author">Wenbin He<sup>2,3</sup></span>
+          <span class="author-separator" aria-hidden="true">·</span>
+          <span class="project-author">Chenyu You<sup>1</sup></span>
+          <span class="author-separator" aria-hidden="true">·</span>
+          <span class="project-author">Liu Ren<sup>2,3</sup></span>
+        </p>
+        <p class="project-affiliations">
+          <span><sup>1</sup> Stony Brook University</span>
+          <span><sup>2</sup> Bosch Research North America</span>
+          <span><sup>3</sup> Bosch Center for Artificial Intelligence (BCAI)</span>
+        </p>
+        <p class="project-author-notes">
+          <span id="author-internship">† This work was done during an internship at Bosch.</span>
+          <span id="author-project-lead">‡ Project lead.</span>
+        </p>
+      </div>
+    </div>
     <div class="hero-film hero-comparison">
       <div class="hero-film-copy"><span class="film-eyebrow">SELF-REACTIVITY</span><p>Same right turn.<br><em>Different responses.</em></p><div class="hero-control"><button id="hero-play" class="on-screen-button" aria-label="Play model comparison"><span aria-hidden="true">▶</span> Play</button><button id="hero-restart" class="on-screen-button" aria-label="Restart both hero videos">↺</button></div></div>
       <div class="hero-comparison-media">
